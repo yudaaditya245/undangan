@@ -1,24 +1,19 @@
-import { supabase } from "../lib/supabaseClient";
+
+import Link from 'next/link';
+import {CgArrowLongRight} from 'react-icons/cg'
+import HomeLayout from '../layout/home';
 
 export default function Home({ users }) {
     return (
         <div>
-            supa
-            <br />
-            {users.map((d) => (
-                <div key={d.id}>{d.merk}</div>
-            ))}
+            <div className='mb-3'>Ini index</div>
+            <Link href="/dashboard" className='flex items-center'>
+                Got to dashboard <CgArrowLongRight size={20} className='ml-3'/>
+            </Link>
         </div>
     );
 }
 
-export async function getServerSideProps() {
-    const readUsers = await supabase.from("mobils").select();
-
-    console.log(readUsers);
-    return {
-        props: {
-            users: readUsers.data,
-        },
-    };
-}
+Home.getLayout = function getLayout(page) {
+    return <HomeLayout>{page}</HomeLayout>;
+};
